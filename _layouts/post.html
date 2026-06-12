@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<article class="post">
+  <h1 class="post-title">{{ page.title }}</h1>
+
+  <div class="post-meta nes-container is-rounded is-dark">
+    <p><span class="meta-key">来源</span>{{ page.source }}{% if page.author and page.author != "" %} / {{ page.author }}{% endif %}</p>
+    <p><span class="meta-key">采集时间</span>{{ page.date | date: "%Y-%m-%d" }}</p>
+    {% if page.url and page.url != "" %}<p><span class="meta-key">原文链接</span><a href="{{ page.url }}" target="_blank" rel="noopener">{{ page.url }}</a></p>{% endif %}
+    {% if page.tags and page.tags.size > 0 %}<p><span class="meta-key">标签</span>{% for t in page.tags %}<span class="tag">#{{ t }}</span>{% endfor %}</p>{% endif %}
+  </div>
+
+  {% if page.cover and page.cover != "" %}
+  <img class="post-cover" src="{{ page.cover }}" alt="{{ page.title }}">
+  {% endif %}
+
+  <div class="post-body">
+    {{ content }}
+  </div>
+
+  <p class="post-back"><a href="{{ '/' | relative_url }}" class="nes-btn">← 返回列表</a></p>
+</article>

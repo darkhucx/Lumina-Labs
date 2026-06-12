@@ -1,0 +1,20 @@
+title: Lumina Labs
+tagline: AI FRONTIER · 中文摘译
+description: 自动采集 AI 前沿博客，机器翻译 + 人工质检后发布的中文摘译。
+baseurl: "/Lumina-Labs"
+url: "https://darkhucx.github.io"
+permalink: /:year/:month/:day/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+timezone: Asia/Tokyo
+# Status filtering happens upstream in publish.sh (only status:published notes
+# ever land in _posts/), so Jekyll needs no where-filter and no plugins here.
+exclude:
+  - publish.sh
+  - README.md
+  - Makefile
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .github/

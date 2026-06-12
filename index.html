@@ -1,0 +1,20 @@
+---
+layout: default
+---
+<section class="post-list">
+  {% for post in site.posts %}
+  <article class="list-item nes-container is-rounded">
+    <h2 class="list-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <div class="list-meta">
+      <span class="list-source">{{ post.source }}</span>
+      <span class="list-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+    </div>
+    {% if post.summary %}<p class="list-summary">{{ post.summary }}</p>{% endif %}
+    {% if post.tags and post.tags.size > 0 %}<div class="list-tags">{% for t in post.tags %}<span class="tag">#{{ t }}</span>{% endfor %}</div>{% endif %}
+  </article>
+  {% endfor %}
+
+  {% if site.posts.size == 0 %}
+  <p class="empty">还没有已发布的文章。<br>在 vault 质检通过（<code>status: published</code>）后跑 <code>./publish.sh</code> 即可上线。</p>
+  {% endif %}
+</section>
