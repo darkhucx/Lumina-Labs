@@ -1,20 +1,57 @@
 ---
 layout: default
 ---
-<section class="post-list">
-  {% for post in site.posts %}
-  <article class="list-item nes-container is-rounded">
-    <h2 class="list-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    <div class="list-meta">
-      <span class="list-source">{{ post.source }}</span>
-      <span class="list-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-    </div>
-    {% if post.summary %}<p class="list-summary">{{ post.summary }}</p>{% endif %}
-    {% if post.tags and post.tags.size > 0 %}<div class="list-tags">{% for t in post.tags %}<span class="tag">#{{ t }}</span>{% endfor %}</div>{% endif %}
-  </article>
-  {% endfor %}
-
-  {% if site.posts.size == 0 %}
-  <p class="empty">还没有已发布的文章。<br>在 vault 质检通过（<code>status: published</code>）后跑 <code>./publish.sh</code> 即可上线。</p>
-  {% endif %}
+<section class="hero">
+  <h1 class="hero-title">{{ site.hero_title | default: site.tagline }}</h1>
+  <p class="hero-sub">{{ site.hero_subtitle | default: site.description }}</p>
 </section>
+
+{% if site.posts.size > 0 %}
+<div class="container">
+
+  {% assign featured = site.posts.first %}
+  <a class="featured" href="{{ featured.url | relative_url }}">
+    <div class="featured-media">
+      {% if featured.cover and featured.cover != "" %}
+      <img src="{{ featured.cover }}" alt="{{ featured.title }}" loading="lazy">
+      {% else %}
+      <div class="ph"><span>{{ featured.source }}</span></div>
+      {% endif %}
+    </div>
+    <div class="featured-body">
+      <div class="card-meta">
+        <span class="badge">{{ featured.source }}</span>
+        <time>{{ featured.date | date: "%Y-%m-%d" }}</time>
+      </div>
+      <h2 class="featured-title">{{ featured.title }}</h2>
+      {% if featured.summary %}<p class="excerpt">{{ featured.summary }}</p>{% endif %}
+    </div>
+  </a>
+
+  <h3 class="section-head">最新文章</h3>
+  <div class="grid">
+    {% for post in site.posts offset:1 %}
+    <article class="card">
+      <a class="card-media" href="{{ post.url | relative_url }}">
+        {% if post.cover and post.cover != "" %}
+        <img src="{{ post.cover }}" alt="{{ post.title }}" loading="lazy">
+        {% else %}
+        <div class="ph"><span>{{ post.source }}</span></div>
+        {% endif %}
+      </a>
+      <div class="card-meta">
+        <span class="badge">{{ post.source }}</span>
+        <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+      </div>
+      <h3 class="card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+      {% if post.summary %}<p class="excerpt">{{ post.summary }}</p>{% endif %}
+    </article>
+    {% endfor %}
+  </div>
+
+</div>
+{% else %}
+<div class="container">
+  <p class="empty">还没有已发布的文章。<br>在 vault 质检通过（<code>status: published</code>）后跑 <code>./publish.sh</code> 即可上线。</p>
+</div>
+{% endif %}

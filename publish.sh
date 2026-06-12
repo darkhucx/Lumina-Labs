@@ -71,7 +71,14 @@ for f in "$VAULT_WEB"/*.md; do
   [ -n "$slug" ] && [ "$slug" != "$base" ] || slug="$base"
 
   target="$POSTS/${date}-${slug}.md"
-  cp "$f" "$target"
+  # Jekyll reserves page.url for the permalink, shadowing a frontmatter `url`.
+  # Rename the frontmatter key url: → source_url: (first block only) so the
+  # post template can render the ORIGINAL article link as page.source_url.
+  awk '
+    /^---[[:space:]]*$/ { c++ }
+    c == 1 && /^url:/ { sub(/^url:/, "source_url:") }
+    { print }
+  ' "$f" > "$target"
   count=$((count + 1))
   echo "published → $(basename "$target")"
 done

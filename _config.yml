@@ -1,6 +1,9 @@
 title: Lumina Labs
 tagline: AI FRONTIER · 中文摘译
 description: 自动采集 AI 前沿博客，机器翻译 + 人工质检后发布的中文摘译。
+hero_title: AI 前沿动态，中文摘译
+hero_subtitle: 自动采集前沿 AI 博客，机器翻译 + 人工质检，每日精选呈现。
+github_url: https://github.com/darkhucx/Lumina-Labs
 baseurl: "/Lumina-Labs"
 url: "https://darkhucx.github.io"
 permalink: /:year/:month/:day/:title/
