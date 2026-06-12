@@ -8,6 +8,12 @@ markdown: kramdown
 kramdown:
   input: GFM
 timezone: Asia/Tokyo
+# vault notes carry no `layout` key — apply it by default so publish.sh can copy
+# them verbatim. _posts/ holds ONLY vault-synced published notes (publish.sh
+# wipes & rebuilds it each run); evergreen pages like about.md are NOT posts.
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post }
 # Status filtering happens upstream in publish.sh (only status:published notes
 # ever land in _posts/), so Jekyll needs no where-filter and no plugins here.
 exclude:
